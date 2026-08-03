@@ -1,0 +1,4 @@
+interface:
+  display_name: "指派 Luna（指派路那）"
+  short_description: "母代理以一次性自足工作單指派 Luna Max，驗收並檢討失敗"
+  default_prompt: "使用 $delegate-luna，由母代理先完成全局判斷，再把任務拆成不繼承對話的一次性自足工作單，只交給 luna_worker 執行；逐項驗收，失敗時歸因並以新 thread 重派。"
