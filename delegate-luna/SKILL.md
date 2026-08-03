@@ -9,19 +9,20 @@ description: 使用者說「指派 Luna」、「指派luna」、「指派路那�
 
 ## 硬性規則
 
-1. 只委派給自訂代理 `luna_worker`；不得啟動 default、worker、explorer、Sol、Terra 或其他自訂子代理。
-2. `luna_worker` 必須實際解析為 `gpt-5.6-luna` 且 `model_reasoning_effort = "max"`。若 runtime 顯示不同模型或 effort，立即停止並回報實際值；不得把同名的一般子代理當成成功。
-3. 母代理必須配合 Luna 的能力調整派工。不得要求 Luna 承擔全局架構、大範圍探索、未釐清需求、跨系統取捨或長依賴鏈；先由母代理選定方向、消除歧義並拆小。
-4. 每個 Luna 任務都必須單向且一次性：`母代理下達完整工作單 → Luna 執行、自驗、回報 → thread 結束`。不得依賴後續對話把任務補完整。
-5. 一律以 `fork_turns = "none"` 建立新的 Luna thread。不得要求 Luna 重讀母代理、其他代理或上一個 Luna thread 的對話；所有必要資訊必須寫進本次工作單或以精確路徑指向穩定來源。
-6. 不向已回報的 Luna thread 發 follow-up。若結果不合格或遇到阻礙，母代理先驗收、歸因並重寫完整工作單，再建立新的 `luna_worker` thread。
-7. 所有實質執行工作交給 Luna。母代理只做必要的目標理解、全局取捨、依賴排序、工作單設計、結果驗收、失敗歸因與最終整合。
-8. 若 Luna 無法啟動、工具不支援自訂角色或權限不足，停止並明確回報阻礙。除非使用者另行同意，不得改用其他模型，也不得由母代理悄悄代做。
-9. 遵守原任務的權限、安全與破壞性操作限制；本技能不擴張授權。
+1. 本 Skill 以正式版 Codex CLI `0.146.0` 為已驗證基準。首次派工前，若可讀取 runtime 版本，確認不是較舊版本或 `0.146.0-alpha.*`；版本不同時不得只憑檔案存在就假設支援，必須先驗證多代理工具、自訂代理載入與 model／effort metadata。
+2. 只委派給自訂代理 `luna_worker`；不得啟動 default、worker、explorer、Sol、Terra 或其他自訂子代理。
+3. `luna_worker` 必須實際解析為 `gpt-5.6-luna` 且 `model_reasoning_effort = "max"`。若 runtime 顯示不同模型或 effort，立即停止並回報實際值；不得把同名的一般子代理當成成功。
+4. 母代理必須配合 Luna 的能力調整派工。不得要求 Luna 承擔全局架構、大範圍探索、未釐清需求、跨系統取捨或長依賴鏈；先由母代理選定方向、消除歧義並拆小。
+5. 每個 Luna 任務都必須單向且一次性：`母代理下達完整工作單 → Luna 執行、自驗、回報 → thread 結束`。不得依賴後續對話把任務補完整。
+6. 一律以 `fork_turns = "none"` 建立新的 Luna thread。不得要求 Luna 重讀母代理、其他代理或上一個 Luna thread 的對話；所有必要資訊必須寫進本次工作單或以精確路徑指向穩定來源。
+7. 不向已回報的 Luna thread 發 follow-up。若結果不合格或遇到阻礙，母代理先驗收、歸因並重寫完整工作單，再建立新的 `luna_worker` thread。
+8. 所有實質執行工作交給 Luna。母代理只做必要的目標理解、全局取捨、依賴排序、工作單設計、結果驗收、失敗歸因與最終整合。
+9. 若 Luna 無法啟動、工具不支援自訂角色或權限不足，停止並明確回報阻礙。除非使用者另行同意，不得改用其他模型，也不得由母代理悄悄代做。
+10. 遵守原任務的權限、安全與破壞性操作限制；本技能不擴張授權。
 
 ## 可攜代理設定
 
-- 本 Skill 內附 `assets/luna-worker.toml`，作為移轉與安裝用的代理設定來源。
+- 本 Skill 內附 `assets/luna-worker.toml`，作為移轉與安裝用的代理設定來源；可重現基準是正式版 Codex CLI `0.146.0`，不是同名 Alpha 預覽版。
 - Codex 不會直接從 Skill 目錄載入自訂代理。個人安裝必須放在 `~/.codex/agents/luna-worker.toml`；專案限定安裝則放在該專案的 `.codex/agents/luna-worker.toml`。
 - 搬移到另一個 Codex 環境時，先安裝整個 Skill，再把內附 TOML 複製到其中一個正式代理目錄，重新啟動 Codex，並確認實際 runtime 為 `gpt-5.6-luna`、`max`。
 - 若正式代理目錄已有同名檔案，先比較內容；未取得明確授權不得覆寫。Skill 內的檔案是可攜來源，正式代理目錄中的檔案是執行時載入副本。
