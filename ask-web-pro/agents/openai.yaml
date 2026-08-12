@@ -1,7 +1,7 @@
 interface:
   display_name: "問網頁 Pro"
-  short_description: "以 Luna Max 操作 Edge 的 GPT-5.6 Sol Pro 並帶回完整答案"
-  default_prompt: "使用 $ask-web-pro 在 Microsoft Edge 的 GPT-5.6 Sol Pro 獨立對話提出我的問題，取得答案後交回母 Agent 處理。"
+  short_description: "以 Luna Max 操作 Chrome 的 GPT-5.6 Sol Pro 並帶回完整答案"
+  default_prompt: "使用 $ask-web-pro 在 Google Chrome 的 GPT-5.6 Sol Pro 獨立對話提出我的問題，取得答案後交回母 Agent 處理。"
 
 policy:
   allow_implicit_invocation: true
