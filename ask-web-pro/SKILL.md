@@ -1,6 +1,6 @@
 ---
 name: ask-web-pro
-description: 以固定的 Luna Max 子 Agent 操作使用者已登入的 Microsoft Edge，在獨立的 GPT-5.6 Sol Pro 對話原樣送出問題、等待完整回答並帶回母 Agent；支援母 Agent 在同一條對話繼續追問。當使用者說「問網頁 Pro」、「先問 Pro」、「交給 Pro 問」、「讓 Pro 回答後再執行」或要求透過 ChatGPT Pro 網頁取得第二意見時使用。
+description: 以固定的 Luna Max 子 Agent 操作使用者已登入的 Google Chrome，在獨立的 GPT-5.6 Sol Pro 對話原樣送出問題、等待完整回答並帶回母 Agent；支援母 Agent 在同一條對話繼續追問。當使用者說「問網頁 Pro」、「先問 Pro」、「交給 Pro 問」、「讓 Pro 回答後再執行」或要求透過 ChatGPT Pro 網頁取得第二意見時使用。
 ---
 
 # 問網頁 GPT-5.6 Sol Pro
@@ -23,15 +23,15 @@ agent_type: luna_worker
 
 建立後立即核對 runtime metadata。若 `spawn_agent` 拒絕 `luna_worker`，或實際 `agent_role`、`model`、`effort` 不是分別為 `luna_worker`、`gpt-5.6-luna`、`max`，立即停止並回報實際值；不得改用 Sol、default 或任何其他代理／模型，也不得以別名掩飾不符的 runtime 設定。
 
-## Edge 啟動授權
+## Chrome 啟動授權
 
-使用者已永久允許本 Skill 在 Microsoft Edge 未執行時，依 `chrome:control-chrome` Skill 的官方流程直接啟動 Edge，不必再次詢問。啟動後等待兩秒，再重試 Edge 連線一次。
+使用者已永久允許本 Skill 在 Google Chrome 未執行時，依 `chrome:control-chrome` Skill 的官方流程直接啟動 Chrome，不必再次詢問。啟動後等待兩秒，再重試 Chrome 連線一次。
 
-此授權僅限為本 Skill 啟動 Edge；不包含安裝或重裝外掛、修改瀏覽器設定、切換其他瀏覽器，或讀取 cookies、儲存區與登入資料。若重試仍失敗，依 Edge 疑難排解規則停止並回報。
+此授權僅限為本 Skill 啟動 Chrome；不包含安裝或重裝外掛、修改瀏覽器設定、切換其他瀏覽器，或讀取 cookies、儲存區與登入資料。若重試仍失敗，依 Chrome 疑難排解規則停止並回報。
 
 ## 首次提問
 
-1. 母 Agent 先產生本輪全新的 lowercase/digits/underscore `<unique_suffix>`，再以 `task_name: web_pro_messenger_<unique_suffix>`、`fork_turns: none`、`agent_type: luna_worker` 建立全新的子 Agent，並在工作單中指示它使用 `chrome:control-chrome` Skill，以穩定選擇器 `edge` 操作使用者已登入的 Microsoft Edge。Edge 是硬性限制，不得改用 Chrome、內建瀏覽器或其他瀏覽器。不得重用任何既有 canonical task path；若僅因 task path 已存在而被拒絕，依固定配置只用另一個全新的唯一 task_name 重建一次。
+1. 母 Agent 先產生本輪全新的 lowercase/digits/underscore `<unique_suffix>`，再以 `task_name: web_pro_messenger_<unique_suffix>`、`fork_turns: none`、`agent_type: luna_worker` 建立全新的子 Agent，並在工作單中指示它使用 `chrome:control-chrome` Skill，以穩定選擇器 `chrome` 操作使用者已登入的 Google Chrome。Chrome 是硬性限制，不得改用 Edge、內建瀏覽器或其他瀏覽器。不得重用任何既有 canonical task path；若僅因 task path 已存在而被拒絕，依固定配置只用另一個全新的唯一 task_name 重建一次。
 2. 子 Agent 在任何瀏覽器操作前完整讀取該 Skill，並遵守其瀏覽器選擇、文件載入、登入與禁止讀取 cookies／儲存區的規則。
 3. 前往 ChatGPT，建立全新的獨立對話。
 4. 在送出問題前，分別操作並確認模型選擇器的實際選取值為 `GPT-5.6 Sol`，模式／推理強度的實際選取值為 `Pro`。若需要切換，先選擇 `GPT-5.6 Sol`，再選擇 `Pro`，最後重新讀取兩個控制項的可見選取狀態。
