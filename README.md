@@ -12,7 +12,7 @@
 
 ### `ask-web-pro`
 
-以一次性的 Luna Max 子代理操作使用者已登入的 Microsoft Edge，在獨立的 ChatGPT 對話中確認 `GPT-5.6 Sol` 與 `Pro` 模式、原樣送出問題，等待完整回答後帶回母代理。支援使用同一個 ChatGPT 對話網址繼續追問。
+以一次性的 Luna Max 子代理操作使用者已登入的 Google Chrome，在獨立的 ChatGPT 對話中確認 `GPT-5.6 Sol` 與 `Pro` 模式、原樣送出問題，等待完整回答後帶回母代理。支援使用同一個 ChatGPT 對話網址繼續追問。
 
 可用「問網頁 Pro」、「先問 Pro」、「交給 Pro 問」或「讓 Pro 回答後再執行」等說法觸發。
 
@@ -23,7 +23,7 @@
    - [`ask-web-pro`](ask-web-pro)
 2. 使用任一 Luna 工作流程時，把 [`delegate-luna/assets/luna-worker.toml`](delegate-luna/assets/luna-worker.toml) 複製到 `~/.codex/agents/luna-worker.toml`；若只想讓單一專案使用，改放在該專案的 `.codex/agents/luna-worker.toml`。
 3. 確認 Codex 多代理功能已啟用，並完整重新啟動 Codex。
-4. `ask-web-pro` 還需要可由 Codex 控制的 Microsoft Edge、已登入 ChatGPT 的瀏覽器狀態，以及帳號可用的 `GPT-5.6 Sol`／`Pro` 選項。
+4. `ask-web-pro` 還需要可由 Codex 控制的 Google Chrome、已登入 ChatGPT 的瀏覽器狀態，以及帳號可用的 `GPT-5.6 Sol`／`Pro` 選項。
 
 ## 核心原則
 
